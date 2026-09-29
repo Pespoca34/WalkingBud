@@ -38,9 +38,9 @@ public class UserEntity {
     @NotBlank
     private String name;
 
-    @Column(nullable = false)
-    @NotBlank
-    private Habitation address;
+    @ManyToOne
+    @JoinColumn(name="address_id")
+    private AddressEntity address;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

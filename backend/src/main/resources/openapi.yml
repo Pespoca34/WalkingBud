@@ -9,6 +9,8 @@ tags:
     description: Operations related to user management
   - name: WalkBud
     description: Operations related to walking bud
+  - name: Ride
+    description: Operations related to ride management
 
 paths:
   /user:
@@ -108,8 +110,66 @@ paths:
         '400':
           description: Walker not found
 
+  /ride:
+    post:
+      tags:
+        - Ride
+      operationId: requestRide
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RideRequest'
+      responses:
+        '200':
+          description: Requested ride
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RideResponse'
+        '400':
+          description: Invalid ride request
+
 components:
   schemas:
+    RideRequest:
+      type: object
+      required:
+        - userId
+        - startingPosition
+        - destinationPosition
+        - price
+        - date
+      properties:
+        userId:
+          description: ID of the user requesting the ride
+          type: string
+        startingPosition:
+          type: string
+        destinationPosition:
+          type: string
+        price:
+          type: string
+          format: decimal
+        date:
+          type: string
+          format: date-time
+
+    RideResponse:
+      type: object
+      required:
+        - rideId
+        - startingPosition
+        - destinationPosition
+      properties:
+        rideId:
+          type: string
+        startingPosition:
+          type: string
+        destinationPosition:
+          type: string
+
     WalkingBudCreatedResponse:
       type: object
       properties:
